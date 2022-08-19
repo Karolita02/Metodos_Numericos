@@ -24,16 +24,17 @@ public class principal
         
         do {
             if (opcion == 1)
-                opcionElegida = menuModoManual(); 
+                opcionElegida = menuModoManual();
             else    
                 opcionElegida = aleatorio.nextInt(1,4+1);
             vehiculoElegido = tipoVehiculo(opcionElegida);
             tarifaTotal += vehiculoElegido.getTarifa(); 
             System.out.println(vehiculoElegido.toString());
-        } while (continuar(opcion, cantidad++, limite)); 
-        
+        } while (continuar(opcion, cantidad++, limite));
+        if (opcion == 2)
+            pausarPrograma();
         mostrarVehiculos();
-        System.out.println("La Tarifa Total de todos los vehiculos es de: " + tarifaTotal);
+        System.out.println(String.format("\nLa tarifa total por todos los vehículos registrados es de: %.2f ",  tarifaTotal));
         reiniciarContadores();
 
     }
@@ -56,18 +57,19 @@ public class principal
 
     static void mostrarVehiculos()
     {
-        System.out.println("Informe - Estación de Peajes de Vehículos");
+        limpiarPantalla();
+        System.out.println("\nInforme - Estación de Peajes de Vehículos\n");
         System.out.println("Cantidad de vehículos registrados: " + vehiculos.getTotal()); 
         System.out.println("Cantidad de Buses: " + buses.getCantidad()); 
         System.out.println("Cantidad de Camiones Livianos: " + camionesLivianos.getCantidad()); 
         System.out.println("Cantidad de Camiones Pesados: " + camionesPesados.getCantidad()); 
         System.out.println("Cantidad de Vehiculos Livianos: " + vehiculosLivianos.getCantidad()); 
-
     }
     static int menuPrincipal()
     {
         int opcion = 0;
         do {
+            limpiarPantalla();
             System.out.println("°°°°° ESTACIÓN DE PEAJES DE VEHÍCULOS °°°°°");
             System.out.println("Bienvenido a nuestro programa !!");
             System.out.println("Elija un modo para el registro de vehículos");
@@ -81,6 +83,7 @@ public class principal
     {
         int opcion = 0;
         do{
+            limpiarPantalla();
             System.out.println("Seleccione un tipo de vehiculo");
             System.out.println("1)Buses");
             System.out.println("2)Camiones Livianos");
@@ -95,7 +98,7 @@ public class principal
         System.out.print(texto);
         return leer.nextInt();
     }
-
+    
     static vehiculos tipoVehiculo(int numero)
     {
         vehiculos vehiculo = null;
@@ -124,9 +127,10 @@ public class principal
         if (numero > 0 && numero <= limite)
             return numero;
         System.out.println("Error, el número ingresado debe estar en el rango de 1 a " + limite);
+        pausarPrograma();
         return -1;
     }
-
+ 
     static String registrarVehiculo()
     {
         String opcion;
@@ -137,7 +141,27 @@ public class principal
             if(opcion.equalsIgnoreCase("Si")|| opcion.equalsIgnoreCase("No"))
                 return opcion;
             System.out.println("Error, escriba si o no para seleccionar la opción que desea ejecutar");
+            pausarPrograma();
         }
 
+    }
+
+    public static void limpiarPantalla()
+    {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void pausarPrograma()
+    {
+        System.out.println("o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o-o");
+        try {
+            new ProcessBuilder("cmd", "/c", "pause").inheritIO().start().waitFor();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

@@ -12,7 +12,8 @@ public class vehiculos
 
     @Override
     public String toString() {
-        return "Tipo de Vehículo seleccionado: " + nombre + "\nTarifa: " +getTarifa();
+        return "Tipo de Vehículo seleccionado: " + nombre + String.format("\nTarifa: %.2f ",getTarifa() ) + "$";
+
     }  
 
     public float getTarifa() 
