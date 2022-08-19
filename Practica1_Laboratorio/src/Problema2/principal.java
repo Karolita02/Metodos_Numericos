@@ -34,10 +34,12 @@ public class principal
         if (opcion == 2)
             pausarPrograma();
         mostrarVehiculos();
-        System.out.println(String.format("\nLa tarifa total por todos los vehículos registrados es de: %.2f ",  tarifaTotal));
+        System.out.println(String.format("\nLa tarifa total por todos los vehículos registrados es de: %.2f $",  tarifaTotal));
         reiniciarContadores();
 
     }
+
+    // metodos utilizados en el desarrollo del programa 
 
     public static boolean continuar(int opcion, int cantidad, int limite){
         if(opcion == 1)
